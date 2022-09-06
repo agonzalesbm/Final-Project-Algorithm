@@ -6,16 +6,11 @@ public class Node<T> {
     private T value;
     private List<Edge<T>> edgeList;
     private boolean visited;
-    private boolean wasDrawed;
-
-    private boolean isPainted;
 
     public Node(T value) {
         this.value = value;
         edgeList = new LinkedList<>();
         visited = false;
-        wasDrawed = false;
-        isPainted = false;
     }
 
     public boolean addEdge(Edge<T> newEdge) {
@@ -86,4 +81,11 @@ public class Node<T> {
             throw new NullPointerException("Not valid null value");
         }
     }
+
+    @Override
+    public String toString() {
+        return "[value=" + value + "]";
+    }
+
+    
 }

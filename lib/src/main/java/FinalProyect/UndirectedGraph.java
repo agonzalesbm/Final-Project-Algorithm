@@ -9,11 +9,19 @@ import java.util.Map;
 import java.util.Queue;
 import java.util.Set;
 
-public class UndirectedWeightedGraph<T> {
+public class UndirectedGraph<T> {
     private Map<Node<T>, List<Edge<T>>> adjList;
     private Map<Node<T>, Integer> elementDictionaryIndex;
+    
+    public Map<Node<T>, List<Edge<T>>> getAdjList() {
+        return adjList;
+    }
 
-    public UndirectedWeightedGraph() {
+    public Map<Node<T>, Integer> getElementDictionaryIndex() {
+        return elementDictionaryIndex;
+    }
+
+    public UndirectedGraph() {
         adjList = new LinkedHashMap<>();
         elementDictionaryIndex = new LinkedHashMap<>();
     }
@@ -49,15 +57,17 @@ public class UndirectedWeightedGraph<T> {
         return false;
     }
 
-    public boolean addEdge(Node<T> source, Node<T> destination, Weight weight) {
+    public boolean addEdge(Node<T> source, Node<T> destination) {
         evaluateGivenNode(source);
         evaluateGivenNode(destination);
+        addNode(source);
+        addNode(destination);
         if (adjList.containsKey(source) && adjList.containsKey(destination)) {
             if (source == null && destination == null) {
                 return false;
             }
-            source.addEdge(new Edge<>(source, destination, weight));
-            destination.addEdge(new Edge<>(destination, source, weight.getInverse()));
+            source.addEdge(new Edge<>(source, destination));
+            destination.addEdge(new Edge<>(destination, source));
             return true;
         }
         return false;
@@ -139,12 +149,6 @@ public class UndirectedWeightedGraph<T> {
         }
     }
 
-    public void markAllAsNotDrawn() {
-        for (var node : adjList.keySet()) {
-            node.markAsNotDrawn();
-        }
-    }
-
     public Set<Node<T>> getAllNodes() {
         return adjList.keySet();
     }
@@ -160,5 +164,16 @@ public class UndirectedWeightedGraph<T> {
         adjList.clear();
         elementDictionaryIndex.clear();
         return true;
+    }
+
+    public static void main(String[] args) {
+        UndirectedGraph<Integer> undirectedGraph = new UndirectedGraph<>();
+        Node<Integer> root = new Node<Integer>(11);
+        undirectedGraph.addEdge(root, new Node<Integer>(10));
+        undirectedGraph.addEdge(root, new Node<Integer>(15));
+        // System.out.println(undirectedGraph.getAdjList());
+        System.out.println(undirectedGraph.getAdjList().get(root));
+        Integer i = undirectedGraph.getAdjList().get(root).get(1).getDestination().getValue();
+        System.out.println(i);
     }
 }

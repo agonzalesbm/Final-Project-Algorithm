@@ -4,7 +4,7 @@ public class Edge<T> {
     private Node<T> destination;
     private Node<T> source;
 
-    public Edge(Node<T> source, Node<T> destination, Weight weight) {
+    public Edge(Node<T> source, Node<T> destination) {
         evaluateSourceAndGivenValues(source, destination);
         this.destination = destination;
         this.source = source;
@@ -24,11 +24,11 @@ public class Edge<T> {
 
     public void setSource(Node<T> source) {
         this.source = source;
-    }
+    }    
 
     @Override
     public String toString() {
-        return "";
+        return "[destination=" + destination + ", source=" + source + "]\n";
     }
 
     private void evaluateSourceAndGivenValues(Node<T> source, Node<T> destination) {
