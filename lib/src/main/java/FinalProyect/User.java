@@ -58,5 +58,8 @@ public class User {
         return repositoriesFollowList;
     }
 
-    
+    @Override
+    public int hashCode() {
+        return id;
+    }
 }
