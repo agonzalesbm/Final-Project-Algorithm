@@ -166,6 +166,14 @@ public class UndirectedGraph<T> {
         return true;
     }
 
+    public Node<T> getNode(T data) {
+        for (Node<T> node : adjList.keySet()) {
+            if (node.getValue().hashCode() == data.hashCode()) {
+                return node;
+            }
+        }
+        return null;
+    }
     public static void main(String[] args) {
         UndirectedGraph<Integer> undirectedGraph = new UndirectedGraph<>();
         Node<Integer> root = new Node<Integer>(11);
