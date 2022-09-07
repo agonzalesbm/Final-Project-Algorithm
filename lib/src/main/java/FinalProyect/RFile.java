@@ -10,8 +10,7 @@ import java.util.Scanner;
 public class RFile {
     public static void main(String[] args) throws FileNotFoundException {
         UndirectedGraph<User> undirectedGraph = new UndirectedGraph<>();
-        File file = new File("lib\\src\\main\\resources\\file.txt");
-        FileReader fileReader = new FileReader(file);
+        FileReader fileReader = new FileReader(Path.DATA.getGithub());
         Scanner scanner = new Scanner(fileReader);
         User audie = new User(Integer.parseInt(scanner.nextLine()));
         undirectedGraph.addNode(new Node<User>(audie));
