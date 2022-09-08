@@ -1,8 +1,8 @@
 package FinalProyect;
 
 public  class Edge<T> {
-    final Node<T> source;
-    final Node<T> destination;
+    private final Node<T> source;
+    private final Node<T> destination;
 
     public Edge(Node<T> source, Node<T> destination) {
         this.source = source;
@@ -23,5 +23,13 @@ public  class Edge<T> {
     @Override
     public int hashCode(){
         return this.source.hashCode()+this.destination.hashCode();
+    }
+
+    public Node<T> getSource() {
+        return source;
+    }
+
+    public Node<T> getDestination() {
+        return destination;
     }
 }

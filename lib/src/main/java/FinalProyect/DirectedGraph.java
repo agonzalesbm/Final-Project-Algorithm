@@ -20,7 +20,7 @@ public class DirectedGraph<T> {
     }
     private Edge<T> insertEdge(T source, T destination){
         Edge<T> edge = new Edge<T>(insertNode(source), insertNode(destination));
-        if (!hasEdge(edge.source.getValue(),edge.destination.getValue()))
+        if (!hasEdge(edge.getSource().getValue(),edge.getDestination().getValue()))
             edgeHashMap.put(source + "->" + destination, edge);
         return edge;
     }
@@ -58,7 +58,7 @@ public class DirectedGraph<T> {
     }
 
     public void addEdge(Edge<T> edge) {
-        addEdge(edge.source.getValue(),edge.destination.getValue());
+        addEdge(edge.getSource().getValue(),edge.getDestination().getValue());
     }
 
     public void deleteEdge(T source, T destination) {
@@ -74,14 +74,14 @@ public class DirectedGraph<T> {
     }
 
     public void deleteEdge(Edge<T> edge) {
-        deleteEdge(edge.source.getValue(), edge.destination.getValue());
+        deleteEdge(edge.getSource().getValue(), edge.getDestination().getValue());
     }
 
     public void deleteNode(T value) {
         if (hasNode(value)) {
             List<Edge<T>> edges = new ArrayList<>(graph.get(insertNode(value)));
             for (Edge<T> edge : edges) {
-                deleteEdge(edge.source.getValue(), edge.destination.getValue());
+                deleteEdge(edge.getSource().getValue(), edge.getDestination().getValue());
             }
             graph.remove(insertNode(value));
             nodeHashMap.remove(value);
@@ -96,7 +96,7 @@ public class DirectedGraph<T> {
         if (hasNode(value)) {
             List<Edge<T>> edges = new ArrayList<>();
             for (Edge<T> edge : graph.get(insertNode(value))) {
-                if (edge.destination.equals(insertNode(value)))
+                if (edge.getDestination().equals(insertNode(value)))
                     edges.add(edge);
             }
             return edges;
@@ -111,7 +111,7 @@ public class DirectedGraph<T> {
         if (hasNode(value)) {
             List<Edge<T>> edges = new ArrayList<>();
             for (Edge<T> edge : graph.get(insertNode(value))) {
-                if (edge.source.equals(insertNode(value)))
+                if (edge.getSource().equals(insertNode(value)))
                     edges.add(edge);
             }
             return edges;
