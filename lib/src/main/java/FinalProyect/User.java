@@ -33,7 +33,7 @@ public class User {
         return false;
     }
 
-    public boolean addRepositorieList(String s) {
+    public boolean addRepositorie(String s) {
         if (!repositoriesFollowList.contains(s)) {
             repositoriesFollowList.add(s);
             return true;
@@ -58,5 +58,14 @@ public class User {
         return repositoriesFollowList;
     }
 
-    
+    @Override
+    public int hashCode() {
+        return id;
+    }
+
+    @Override
+    public String toString() {
+        return id + "";
+    }
+
 }

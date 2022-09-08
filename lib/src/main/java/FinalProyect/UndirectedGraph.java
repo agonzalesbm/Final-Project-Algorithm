@@ -166,14 +166,28 @@ public class UndirectedGraph<T> {
         return true;
     }
 
+    public Node<T> getNode(T data) {
+        for (Node<T> node : adjList.keySet()) {
+            if (node.getValue().hashCode() == data.hashCode()) {
+                return node;
+            }
+        }
+        return null;
+    }
+
+
     public static void main(String[] args) {
         UndirectedGraph<Integer> undirectedGraph = new UndirectedGraph<>();
         Node<Integer> root = new Node<Integer>(11);
         undirectedGraph.addEdge(root, new Node<Integer>(10));
         undirectedGraph.addEdge(root, new Node<Integer>(15));
         // System.out.println(undirectedGraph.getAdjList());
-        System.out.println(undirectedGraph.getAdjList().get(root));
+        // System.out.println(undirectedGraph.getAdjList().get(root));
         Integer i = undirectedGraph.getAdjList().get(root).get(1).getDestination().getValue();
-        System.out.println(i);
+        for (Map.Entry<Node<Integer>, List<Edge<Integer>>> entry : undirectedGraph.getAdjList().entrySet()) {
+            System.out.println(entry.getValue());
+        }
+        // System.out.println(i1);
+        // System.out.println(undirectedGraph.getAllNodes());
     }
 }

@@ -3,7 +3,7 @@ package FinalProyect;
 public enum Path {
 
     DATA("Github");
-    public final static String PATHFILE= "/lib/src/main/resources/";
+    public final static String PATHFILE= "lib\\src\\main\\resources\\";
 
     private final String path;
 
@@ -16,7 +16,7 @@ public enum Path {
     }
 
     public String getGithub() {
-        return PATHFILE + DATA.path + "/" + path + ".txt";
+        return PATHFILE + DATA.path + "\\" + path + ".txt";
     }
 
 }
