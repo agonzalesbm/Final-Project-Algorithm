@@ -4,9 +4,9 @@ package FinalProyect;
 import java.util.*;
 
 public class DirectedGraph<T> {
-    final Map<Node<T>, List<Edge<T>>> graph = new HashMap<>();
-    Map<T, Node<T>> nodeHashMap = new HashMap<>();
-    Map<String, Edge<T>> edgeHashMap = new HashMap<>();
+    private final Map<Node<T>, List<Edge<T>>> graph = new HashMap<>();
+    private Map<T, Node<T>> nodeHashMap = new HashMap<>();
+    private final Map<String, Edge<T>> edgeHashMap = new HashMap<>();
 
     public DirectedGraph() {
         this.nodeHashMap = nodeHashMap;
