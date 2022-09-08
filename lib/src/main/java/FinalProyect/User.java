@@ -33,7 +33,7 @@ public class User {
         return false;
     }
 
-    public boolean addRepositorieList(String s) {
+    public boolean addRepositorie(String s) {
         if (!repositoriesFollowList.contains(s)) {
             repositoriesFollowList.add(s);
             return true;
