@@ -9,10 +9,12 @@ public class AudieMethod {
     public void method2(int N) throws FileNotFoundException{
         RFile rFile = new RFile();
         rFile.createUsers();
-        Node<User> user = rFile.getDirectedGraph().getNode(new User(102));
+        Node<User> user = rFile.getDirectedGraph().getNode(new User(100));
+        Node<User> user2 = rFile.getDirectedGraph().getNode(new User(10012));
 
-        System.out.println(rFile.getDirectedGraph().getAdjList().size());
-        System.out.println(rFile.getDirectedGraph());
+        System.out.println(user.getValue().getUserFollowList());
+        System.out.println(user2.getValue().getUserFollowList());
+        //System.out.println(rFile.getDirectedGraph());
     }
 
     public void method3(){

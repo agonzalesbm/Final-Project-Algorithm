@@ -9,29 +9,9 @@ import java.util.Map;
 import java.util.Set;
 
 public class FindTopic {
-    private Node<User> findNode(DirectedGraph<User>directedGraph, User user) {
-        Map<User, Node<User>> map = directedGraph.getNodeHashMap();
-        if (map.containsKey(user)) {
-            return map.get(user);
-        }
-        return null;
-    }
-
-public List<User> getFollowersByGrade(User user, int grade){
-    List<User> idList;
-    idList = user.getUserFollowList();
-    for (int i = 0; i < idList.size(); i++) {
-
-        for (int j = 0; j < grade-1; j++) {
-            
-        }
-    }
-    return idList;
-}
-
 
     private List<User> method1(DirectedGraph<User>undirectedGraph, User user, int limit) {
-        Node<User>node = findNode(undirectedGraph, user);
+        Node<User>node = undirectedGraph.getNode(user);
         //List<Edge<User>> listEdge = node.getEdgeList();
         //List<User> listUser = getElementeSecondOFEdge(listEdge);
         //List<User>userGrap = converterNodeToList(undirectedGraph.getAllNodes());
@@ -53,7 +33,7 @@ public List<User> getFollowersByGrade(User user, int grade){
     }
 
     private List<Node<User>> generateListFollow(User user, DirectedGraph<User> directedGraph, int limit) {
-        Set<Node<User>> set = directedGraph.getGraph().keySet();
+        Set<Node<User>> set = directedGraph.getAllNodes();
         List<Node<User>>list = new LinkedList<>();
         set.remove(new Node<User>(user));
         for (Node<User> node : set) {
@@ -130,10 +110,10 @@ public List<User> getFollowersByGrade(User user, int grade){
         file.createUsers();
 
         DirectedGraph<User> graph = file.getDirectedGraph();
-        System.out.println("-->   "+ graph +" --> ");
-        List<Node<User>> list = topic.case1(graph, 100, 2);
+       // System.out.println("-->   "+ graph +" --> ");
+        List<Node<User>> list = topic.case1(graph, 100, 1);
         System.out.println();
-        System.out.println(graph.getGraph());
+        ///System.out.println(graph);
         System.out.println(list);
     }
 }
