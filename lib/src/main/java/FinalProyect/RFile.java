@@ -9,7 +9,7 @@ public class RFile {
     private Scanner scanner;
     public RFile() throws FileNotFoundException {
         this.directedGraph = new DirectedGraph<>();
-        this.fileReader = new FileReader(Path.DATA.getGithub());
+        this.fileReader = new FileReader("lib/src/main/resources/Github/Github.txt");
         this.scanner = new Scanner(fileReader);
     }
     public void createUsers() { // n log n
@@ -90,5 +90,9 @@ public class RFile {
             return;
         }
         scanner.close();;
+    }
+
+    public DirectedGraph<User> getDirectedGraph() {
+        return directedGraph;
     }
 }

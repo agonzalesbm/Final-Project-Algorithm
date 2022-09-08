@@ -1,18 +1,18 @@
 package FinalProyect;
 
+import java.io.FileNotFoundException;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 public class FindTopic {
-    private Node<User> findNode(UndirectedGraph<User>undirectedGraph, User user) {
-        Set<Node<User>> list = undirectedGraph.getAllNodes();
-        for (Node<User> node : list) {
-            if (node.getValue().hashCode() == user.hashCode()) {
-                return node;
-            }
+    private Node<User> findNode(DirectedGraph<User>directedGraph, User user) {
+        Map<User, Node<User>> map = directedGraph.getNodeHashMap();
+        if (map.containsKey(user)) {
+            return map.get(user);
         }
         return null;
     }
@@ -30,19 +30,44 @@ public List<User> getFollowersByGrade(User user, int grade){
 }
 
 
-    private List<User> method1(UndirectedGraph<User>undirectedGraph, User user, int limit) {
+    private List<User> method1(DirectedGraph<User>undirectedGraph, User user, int limit) {
         Node<User>node = findNode(undirectedGraph, user);
-        List<Edge<User>> listEdge = node.getEdgeList();
-        List<User> listUser = getElementeSecondOFEdge(listEdge);
-        List<User>userGrap = converterNodeToList(undirectedGraph.getAllNodes());
-        userGrap.removeAll(listUser);
-        sortList(userGrap, user);
-        List<User>Listresult = new LinkedList<>();
+        //List<Edge<User>> listEdge = node.getEdgeList();
+        //List<User> listUser = getElementeSecondOFEdge(listEdge);
+        //List<User>userGrap = converterNodeToList(undirectedGraph.getAllNodes());
+        //userGrap.removeAll(listUser);
+        //sortList(userGrap, user);
+        //List<User>Listresult = new LinkedList<>();
 
-        for (int i = 0; i < limit; i++) {
-            Listresult.add(userGrap.get(i));
+        //for (int i = 0; i < limit; i++) {
+        //     Listresult.add(userGrap.get(i));
+        // }
+        // return Listresult;
+        return null;
+    }
+
+    public List<Node<User>> case1(DirectedGraph<User>directedGraph, int id, int limit) {
+        User user = new User(id);
+        List<Node<User>> listNotFollow = generateListFollow( user,directedGraph, limit);
+        return listNotFollow;
+    }
+
+    private List<Node<User>> generateListFollow(User user, DirectedGraph<User> directedGraph, int limit) {
+        Set<Node<User>> set = directedGraph.getGraph().keySet();
+        List<Node<User>>list = new LinkedList<>();
+        set.remove(new Node<User>(user));
+        for (Node<User> node : set) {
+            List<User> lisFollow = node.getValue().getUserFollowList();
+            if (!lisFollow.contains(user)) {
+                int comunTopic = findInComun(user.getTopicList(), node.getValue().getTopicList());
+                int comunRepos = findInComun(user.getRepositoriesFollowList(), node.getValue().getRepositoriesFollowList());
+                if (comunRepos >= limit || comunTopic >= limit) {
+                    list.add(node);//TODO could be User
+
+                }
+            }
         }
-        return Listresult;
+        return list;
     }
 
     private List<User> converterNodeToList(Set<Node<User>>list) {
@@ -52,6 +77,7 @@ public List<User> getFollowersByGrade(User user, int grade){
         }
         return users;
     }
+
     private int findInComun(List<String>list, List<String>listComun) {
         int cont = 0;
         for (String value : list) {
@@ -96,5 +122,18 @@ public List<User> getFollowersByGrade(User user, int grade){
             }
         });
         return list;
+    }
+
+    public static void main(String[] args) throws FileNotFoundException {
+        FindTopic topic = new FindTopic();
+        RFile file = new RFile();
+        file.createUsers();
+
+        DirectedGraph<User> graph = file.getDirectedGraph();
+        System.out.println("-->   "+ graph +" --> ");
+        List<Node<User>> list = topic.case1(graph, 100, 2);
+        System.out.println();
+        System.out.println(graph.getGraph());
+        System.out.println(list);
     }
 }

@@ -4,12 +4,12 @@ package FinalProyect;
 import java.util.*;
 
 public class DirectedGraph<T> {
-    private final Map<Node<T>, List<Edge<T>>> graph = new HashMap<>();
-    private Map<T, Node<T>> nodeHashMap = new HashMap<>();
-    private final Map<String, Edge<T>> edgeHashMap = new HashMap<>();
+    private final Map<Node<T>, List<Edge<T>>> graph = new HashMap<>();//TODO final
+    private Map<T, Node<T>> nodeHashMap;
+    private final Map<String, Edge<T>> edgeHashMap = new HashMap<>();//TODO final and String
 
     public DirectedGraph() {
-        this.nodeHashMap = nodeHashMap;
+        this.nodeHashMap = new HashMap<>();
     }
 
     private Node<T> insertNode(T value){
@@ -158,5 +158,13 @@ public class DirectedGraph<T> {
             }
         }
         return null;
+    }
+
+    public Map<T, Node<T>> getNodeHashMap() {
+        return nodeHashMap;
+    }
+
+    public Map<Node<T>, List<Edge<T>>> getGraph() {
+        return graph;
     }
 }
