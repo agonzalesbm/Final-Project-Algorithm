@@ -66,5 +66,11 @@ public class User {
     @Override
     public String toString() {
         return id + "";
-    }    
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        User user = (User) obj;
+        return user.hashCode() == this.hashCode();
+    }
 }
