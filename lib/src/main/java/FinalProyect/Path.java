@@ -1,9 +1,12 @@
 package FinalProyect;
 
+import java.io.File;
+import java.nio.file.Files;
+
 public enum Path {
 
     DATA("Github");
-    public final static String PATHFILE= "/lib/src/main/resources/";
+    public final static String PATHFILE= "lib" + File.separator + "src" + File.separator + "main" + File.separator + "resources" + File.separator;
 
     private final String path;
 
@@ -16,7 +19,7 @@ public enum Path {
     }
 
     public String getGithub() {
-        return PATHFILE + DATA.path + "/" + path + ".txt";
+        return PATHFILE + DATA.path + File.separator + path + ".txt";
     }
 
 }

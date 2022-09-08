@@ -62,6 +62,7 @@ public class User {
     public int hashCode() {
         return id;
     }
+    
     @Override
     public String toString() {
         return id + "";

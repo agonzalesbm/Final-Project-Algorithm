@@ -25,6 +25,7 @@ dependencies {
 
     // This dependency is used internally, and not exposed to consumers on their own compile classpath.
     implementation 'com.google.guava:guava:30.1.1-jre'
+    implementation 'org.jgrapht:jgrapht-core:1.0.1'
 }
 
 tasks.named('test') {

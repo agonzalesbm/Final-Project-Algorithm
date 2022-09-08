@@ -1,35 +1,40 @@
 package FinalProyect;
 
 public  class Edge<T> {
-    private final Node<T> source;
-    private final Node<T> destination;
+    private Node<T> destination;
+    private Node<T> source;
 
     public Edge(Node<T> source, Node<T> destination) {
-        this.source = source;
+        evaluateSourceAndGivenValues(source, destination);
         this.destination = destination;
+        this.source = source;
     }
 
-    @Override
-    public String toString(){
-        return source + "->" + destination + "\t";
+    public Node<T> getDestination() {
+        return destination;
     }
 
-    @Override
-    public boolean equals(Object o){
-        if (!(o instanceof Edge)) return false;
-        return (((Edge<?>) o).source.equals(this.source) && ((Edge<?>) o).destination.equals(this.destination)) || o == this;
-    }
-
-    @Override
-    public int hashCode(){
-        return this.source.hashCode()+this.destination.hashCode();
+    public void setDestination(Node<T> destination) {
+        this.destination = destination;
     }
 
     public Node<T> getSource() {
         return source;
     }
 
-    public Node<T> getDestination() {
-        return destination;
+    public void setSource(Node<T> source) {
+        this.source = source;
+    }    
+
+    @Override
+    public String toString() {
+        return "[source=" + source + ", destination=" + destination + "]\n";
     }
+
+    private void evaluateSourceAndGivenValues(Node<T> source, Node<T> destination) {
+        if (source == null || destination == null) {
+            throw new IllegalArgumentException("INVALID ARGUMENTS");
+        }
+    }
+
 }
