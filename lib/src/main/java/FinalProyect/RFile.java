@@ -11,7 +11,7 @@ public class RFile {
 
     public RFile() throws FileNotFoundException {
         this.directedGraph = new DirectedGraph<>();
-        this.fileReader = new FileReader("lib/src/main/resources/Github/Github.txt");
+        this.fileReader = new FileReader(Path.DATA.getGithub());
         this.scanner = new Scanner(fileReader);
     }
 
