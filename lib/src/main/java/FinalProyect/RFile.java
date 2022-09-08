@@ -3,10 +3,12 @@ package FinalProyect;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.Scanner;
+
 public class RFile {
     private DirectedGraph<User> directedGraph;
     private FileReader fileReader;
     private Scanner scanner;
+
     public RFile() throws FileNotFoundException {
         this.directedGraph = new DirectedGraph<>();
         this.fileReader = new FileReader(Path.DATA.getGithub());
@@ -20,29 +22,39 @@ public class RFile {
         for (int i = 0; i < iterations; i++) { // n
             String[] s = scanner.nextLine().split(" ");
             int id1 = Integer.parseInt(s[0]);
-            int id2 = Integer.parseInt(s[1]); 
+            int id2 = Integer.parseInt(s[1]);
 
             if (directedGraph.getNode(new User(id1)) != null && directedGraph.getNode(new User(id2)) == null) {
                 Node<User> user1 = directedGraph.getNode(new User(id1));
                 directedGraph.addEdge(user1, new Node<User>(new User(id2)));
+                User user2 = directedGraph.getNode(new User(id2)).getValue();
+                user2.addUserFollowList(user1.getValue());
                 continue;
             } else if (directedGraph.getNode(new User(id1)) == null && directedGraph.getNode(new User(id2)) != null) {
                 Node<User> user2 = directedGraph.getNode(new User(id2));
                 directedGraph.addEdge(new Node<User>(new User(id1)), user2);
+
+                User user1 = directedGraph.getNode(new User(id1)).getValue();
+                user2.getValue().addUserFollowList(user1);
                 continue;
             } else if (directedGraph.getNode(new User(id1)) != null && directedGraph.getNode(new User(id2)) != null) {
                 Node<User> user1 = directedGraph.getNode(new User(id1));
                 Node<User> user2 = directedGraph.getNode(new User(id2));
                 directedGraph.addEdge(user1, user2);
+
+                user2.getValue().addUserFollowList(user1.getValue());
                 continue;
             }
-            
-            directedGraph.addEdge(new Node<User>(new User(id1)),new Node<User>(new User(id2)));
+
+            directedGraph.addEdge(new Node<User>(new User(id1)), new Node<User>(new User(id2)));
+            Node<User> user1 = directedGraph.getNode(new User(id1));
+            Node<User> user2 = directedGraph.getNode(new User(id2));
+            user2.getValue().addUserFollowList(user1.getValue());
         }
         iterations = Integer.parseInt(scanner.nextLine());
         topicList(iterations); // n log n
         iterations = Integer.parseInt(scanner.nextLine());
-        repositoryList(iterations); //n log n
+        repositoryList(iterations); // n log n
         // Node<User> user1 = directedGraph.getNode(new User(100));
         // System.out.println(user1.getValue().getTopicList());
         // System.out.println(user1.getValue().getRepositoriesFollowList());
@@ -108,9 +120,12 @@ public class RFile {
             repositoryList(iterations); // log n
             return;
         }
+        scanner.close();
+        ;
     }
 
     public DirectedGraph<User> getDirectedGraph() {
         return directedGraph;
     }
+
 }
