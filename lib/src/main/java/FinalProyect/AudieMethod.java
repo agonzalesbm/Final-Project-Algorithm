@@ -19,11 +19,4 @@ public class AudieMethod {
     public void method3(){
     }
 
-    public static void main(String[] args) throws FileNotFoundException {
-        RFile r = new RFile();
-        AudieMethod audieMethod = new AudieMethod();
-        DirectedGraph<User>directedGraph = r.getDirectedGraph();
-        System.out.println(directedGraph);
-        audieMethod.method1(directedGraph, 100, 2);
-    }
 }
