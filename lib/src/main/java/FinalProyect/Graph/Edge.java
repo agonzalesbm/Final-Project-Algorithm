@@ -1,4 +1,4 @@
-package FinalProyect;
+package FinalProyect.Graph;
 
 public  class Edge<T> {
     private Node<T> destination;

@@ -4,6 +4,9 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.Scanner;
 
+import FinalProyect.Graph.DirectedGraph;
+import FinalProyect.Graph.Node;
+
 public class RFile {
     private DirectedGraph<User> directedGraph;
     private FileReader fileReader;
@@ -29,6 +32,7 @@ public class RFile {
                 directedGraph.addEdge(user1, new Node<User>(new User(id2)));
                 User user2 = directedGraph.getNode(new User(id2)).getValue();
                 user2.addUserFollowList(user1.getValue());
+                user1.getValue().addUsersThatUserFollow(user2);
                 continue;
             } else if (directedGraph.getNode(new User(id1)) == null && directedGraph.getNode(new User(id2)) != null) {
                 Node<User> user2 = directedGraph.getNode(new User(id2));
@@ -36,6 +40,7 @@ public class RFile {
 
                 User user1 = directedGraph.getNode(new User(id1)).getValue();
                 user2.getValue().addUserFollowList(user1);
+                user1.addUsersThatUserFollow(user2.getValue());
                 continue;
             } else if (directedGraph.getNode(new User(id1)) != null && directedGraph.getNode(new User(id2)) != null) {
                 Node<User> user1 = directedGraph.getNode(new User(id1));
@@ -43,6 +48,7 @@ public class RFile {
                 directedGraph.addEdge(user1, user2);
 
                 user2.getValue().addUserFollowList(user1.getValue());
+                user1.getValue().addUsersThatUserFollow(user2.getValue());
                 continue;
             }
 
@@ -50,14 +56,12 @@ public class RFile {
             Node<User> user1 = directedGraph.getNode(new User(id1));
             Node<User> user2 = directedGraph.getNode(new User(id2));
             user2.getValue().addUserFollowList(user1.getValue());
+            
         }
         iterations = Integer.parseInt(scanner.nextLine());
         topicList(iterations); // n log n
         iterations = Integer.parseInt(scanner.nextLine());
         repositoryList(iterations); // n log n
-        // Node<User> user1 = directedGraph.getNode(new User(100));
-        // System.out.println(user1.getValue().getTopicList());
-        // System.out.println(user1.getValue().getRepositoriesFollowList());
     }
 
     public void topicList(int iterations) {

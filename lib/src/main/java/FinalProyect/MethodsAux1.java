@@ -6,6 +6,9 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
+import FinalProyect.Graph.DirectedGraph;
+import FinalProyect.Graph.Node;
+
 public class MethodsAux1 {
 
     public List<User> generateListFollow(User user1, DirectedGraph<User> directedGraph, int limit) {
