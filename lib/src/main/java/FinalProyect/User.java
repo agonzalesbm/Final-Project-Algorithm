@@ -5,12 +5,14 @@ import java.util.LinkedList;
 public class User {
     private int id;
     private LinkedList<User> userFollowList;
+    private LinkedList<User> usersThatUserFollow;
     private LinkedList<String> topicList;
     private LinkedList<String> repositoriesFollowList;
-    
+
     public User(int id) {
         this.id = id;
         this.userFollowList = new LinkedList<>();
+        this.usersThatUserFollow = new LinkedList<>();
         this.topicList = new LinkedList<>();
         this.repositoriesFollowList = new LinkedList<>();
     }
@@ -20,7 +22,14 @@ public class User {
             userFollowList.add(user);
             return true;
         }
+        return false;
+    }
 
+    public boolean addUsersThatUserFollow(User user) {
+        if (!usersThatUserFollow.contains(user)) {
+            usersThatUserFollow.add(user);
+            return true;
+        }
         return false;
     }
 
@@ -29,7 +38,6 @@ public class User {
             topicList.add(s);
             return true;
         }
-
         return false;
     }
 
@@ -38,7 +46,6 @@ public class User {
             repositoriesFollowList.add(s);
             return true;
         }
-
         return false;
     }
 
@@ -50,6 +57,10 @@ public class User {
         return userFollowList;
     }
 
+    public LinkedList<User> getUsersThatUserFollow() {
+        return usersThatUserFollow;
+    }
+
     public LinkedList<String> getTopicList() {
         return topicList;
     }
@@ -58,5 +69,19 @@ public class User {
         return repositoriesFollowList;
     }
 
-    
+    @Override
+    public int hashCode() {
+        return id;
+    }
+
+    @Override
+    public String toString() {
+        return id + "";
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        User user = (User) obj;
+        return user.hashCode() == this.hashCode();
+    }
 }
