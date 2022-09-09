@@ -12,13 +12,14 @@ public class RFile {
     private FileReader fileReader;
     private Scanner scanner;
 
-    public RFile() throws FileNotFoundException {
+    public RFile(String path) throws FileNotFoundException {
         this.directedGraph = new DirectedGraph<>();
-        this.fileReader = new FileReader(Path.DATA.getGithub());
+        this.fileReader = new FileReader(path);
         this.scanner = new Scanner(fileReader);
+        createUsers();
     }
 
-    public void createUsers() { // n log n
+    private void createUsers() { // n log n
         User audie = new User(Integer.parseInt(scanner.nextLine()));
         directedGraph.addNode(new Node<User>(audie));
         int iterations = Integer.parseInt(scanner.nextLine());
@@ -56,7 +57,7 @@ public class RFile {
             Node<User> user1 = directedGraph.getNode(new User(id1));
             Node<User> user2 = directedGraph.getNode(new User(id2));
             user2.getValue().addUserFollowList(user1.getValue());
-            
+
         }
         iterations = Integer.parseInt(scanner.nextLine());
         topicList(iterations); // n log n
@@ -64,7 +65,7 @@ public class RFile {
         repositoryList(iterations); // n log n
     }
 
-    public void topicList(int iterations) {
+    private void topicList(int iterations) {
         if (iterations == 0) {
             return;
         }
@@ -95,7 +96,7 @@ public class RFile {
         }
     }
 
-    public void repositoryList(int iterations) {
+    private void repositoryList(int iterations) {
         if (iterations == 0) {
             return;
         }

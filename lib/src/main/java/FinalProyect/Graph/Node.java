@@ -95,8 +95,7 @@ public class Node<T> {
 
     @Override
     public boolean equals(Object obj) {
-        Node<T>node = (Node<T>) obj;
+        Node<T> node = (Node<T>) obj;
         return value.equals(node.getValue());
     }
-
 }

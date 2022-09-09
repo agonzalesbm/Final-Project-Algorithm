@@ -8,7 +8,7 @@ public class User {
     private LinkedList<User> usersThatUserFollow;
     private LinkedList<String> topicList;
     private LinkedList<String> repositoriesFollowList;
-    
+
     public User(int id) {
         this.id = id;
         this.userFollowList = new LinkedList<>();
@@ -22,7 +22,6 @@ public class User {
             userFollowList.add(user);
             return true;
         }
-
         return false;
     }
 
@@ -31,7 +30,6 @@ public class User {
             usersThatUserFollow.add(user);
             return true;
         }
-
         return false;
     }
 
@@ -40,7 +38,6 @@ public class User {
             topicList.add(s);
             return true;
         }
-
         return false;
     }
 
@@ -49,7 +46,6 @@ public class User {
             repositoriesFollowList.add(s);
             return true;
         }
-
         return false;
     }
 
@@ -77,7 +73,7 @@ public class User {
     public int hashCode() {
         return id;
     }
-    
+
     @Override
     public String toString() {
         return id + "";

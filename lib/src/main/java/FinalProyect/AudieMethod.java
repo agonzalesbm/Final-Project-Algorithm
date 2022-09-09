@@ -16,21 +16,18 @@ import FinalProyect.Graph.Edge;
 import FinalProyect.Graph.Node;
 
 public class AudieMethod {
-
-    public List<User> method1(DirectedGraph<User>directedGraph, int id, int limit){
+    public List<User> method1(DirectedGraph<User> directedGraph, int id, int limit) {
         MethodsAux1 m = new MethodsAux1();
         User user = directedGraph.getNode(new User(id)).getValue();
-        List<User> listNotFollow = m.generateListFollow( user,directedGraph, limit);
+        List<User> listNotFollow = m.generateListFollow(user, directedGraph, limit);
         m.sortList(listNotFollow, user);
         return m.selectionToLimit(listNotFollow, limit);
     }
 
-    public void method2(int N) throws FileNotFoundException { // O(n^2)
-        RFile rFile = new RFile();
-        rFile.createUsers();
+    public void method2(DirectedGraph<User> directedGraph, int N) throws FileNotFoundException { // O(n^2)
         var count = 0;
-        List<Node<User>> listUsers = new ArrayList<>(rFile.getDirectedGraph().getAllNodes());
-        User audie = rFile.getDirectedGraph().getNode(new User(100)).getValue();
+        List<Node<User>> listUsers = new ArrayList<>(directedGraph.getAllNodes());
+        User audie = directedGraph.getNode(new User(100)).getValue();
         List<User> audieUsersToFollow = audie.getUsersThatUserFollow();
         List<User> result = new ArrayList<>();
 
@@ -80,8 +77,8 @@ public class AudieMethod {
         return listFollowing;
     }
 
-    public String mostPopularTopic() throws FileNotFoundException { // O(n^2)
-        LinkedList<String> topicList = (LinkedList<String>) getTopicList(); // O(n^2)
+    public String mostPopularTopic(DirectedGraph<User> directedGraph) throws FileNotFoundException { // O(n^2)
+        LinkedList<String> topicList = (LinkedList<String>) getTopicList(directedGraph); // O(n^2)
         TreeMultiset<String> topics = TreeMultiset.create();
         for (String string : topicList) { // O(n)
             topics.add(string);
@@ -101,10 +98,8 @@ public class AudieMethod {
         return linkedList.get(0).toString();
     }
 
-    public List<String> getTopicList() throws FileNotFoundException { // O(n^2)
-        RFile rFile = new RFile();
-        rFile.createUsers();
-        List<Node<User>> userList = new ArrayList<>(rFile.getDirectedGraph().getAllNodes());
+    private List<String> getTopicList(DirectedGraph<User> directedGraph) throws FileNotFoundException { // O(n^2)
+        List<Node<User>> userList = new ArrayList<>(directedGraph.getAllNodes());
         List<String> topicList = new LinkedList<>();
         for (int i = 0; i < userList.size(); i++) {
             LinkedList<String> list = userList.get(i).getValue().getTopicList();
@@ -115,8 +110,8 @@ public class AudieMethod {
         return topicList;
     }
 
-    public String mostPopularRepo() throws FileNotFoundException { // O(n^2)
-        LinkedList<String> repoList = (LinkedList<String>) getReposList();
+    public String mostPopularRepo(DirectedGraph<User> directedGraph) throws FileNotFoundException { // O(n^2)
+        LinkedList<String> repoList = (LinkedList<String>) getReposList(directedGraph);
         TreeMultiset<String> repos = TreeMultiset.create();
         for (String string : repoList) {
             repos.add(string);
@@ -135,19 +130,14 @@ public class AudieMethod {
         return linkedList.get(0).toString();
     }
 
-    public List<String> getReposList() throws FileNotFoundException { // O(n^2)
-
-        RFile rFile = new RFile();
-        rFile.createUsers();
-        List<Node<User>> userList = new ArrayList<>(rFile.getDirectedGraph().getAllNodes());
+    private List<String> getReposList(DirectedGraph<User> directedGraph) throws FileNotFoundException { // O(n^2)
+        List<Node<User>> userList = new ArrayList<>(directedGraph.getAllNodes());
         List<String> reposList = new LinkedList<>();
         for (int i = 0; i < userList.size(); i++) {
-
             LinkedList<String> list = userList.get(i).getValue().getRepositoriesFollowList();
             for (String string : list) {
                 reposList.add(string);
             }
-
         }
         return reposList;
     }
