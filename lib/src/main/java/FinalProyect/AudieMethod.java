@@ -11,15 +11,16 @@ import java.util.Set;
 import com.google.common.collect.TreeMultiset;
 import com.google.common.collect.Multiset.Entry;
 
+import FinalProyect.Graph.DirectedGraph;
+import FinalProyect.Graph.Edge;
+import FinalProyect.Graph.Node;
+
 public class AudieMethod {
-    public void method1(){
+
+    public void method1() {
     }
 
-    public void generateFollowList(int id) {
-        
-    }
-
-    public void method2(int N) throws FileNotFoundException{
+    public void method2(int N) throws FileNotFoundException { // O(n^2)
         RFile rFile = new RFile();
         rFile.createUsers();
         var count = 0;
@@ -28,14 +29,14 @@ public class AudieMethod {
         List<User> audieUsersToFollow = audie.getUsersThatUserFollow();
         List<User> result = new ArrayList<>();
 
-        for (int i = 1; i < listUsers.size(); i++) {
+        for (int i = 1; i < listUsers.size(); i++) { // O(n^2)
             List<User> list = listUsers.get(i).getValue().getUsersThatUserFollow();
             for (int j = 0; j < list.size(); j++) {
                 if (audieUsersToFollow.contains(list.get(j))) {
                     count++;
                     if (count == N) {
                         result.add(listUsers.get(i).getValue());
-                        count = 0;                        
+                        count = 0;
                         break;
                     }
                 }
@@ -44,13 +45,40 @@ public class AudieMethod {
         System.out.println(result);
     }
 
-    public void method3(){
+    public List<User> method3(User user1, int limit, DirectedGraph<User> directedGraph) { // O(n log n)
+        Node<User> user = directedGraph.getNode(user1);
+        List<User> listUserFollowing = listFollowing(user, directedGraph);
+        List<User> listFinal = new LinkedList<>();
+        managUserList(limit - 1, 0, user.getValue().getUserFollowList(), listFinal); // O(n log n)
+        listFinal.removeAll(listUserFollowing);
+        listFinal.remove(user.getValue());
+        System.out.println(listFinal);
+        return listFinal;
     }
 
-    public String mostPopularTopic() throws FileNotFoundException {
-        LinkedList<String> topicList = (LinkedList<String>) getTopicList();
+    private void managUserList(int limit, int cont, List<User> users, List<User> listFinal) { // O(n log n)
+        if (limit == cont) {
+            listFinal.addAll(users);
+            return;
+        }
+        for (User user : users) { // O(n)
+            managUserList(limit, cont + 1, user.getUserFollowList(), listFinal);
+        }
+    }
+
+    private List<User> listFollowing(Node<User> user, DirectedGraph<User> directedGraph) { // O(n)
+        List<Edge<User>> edges = directedGraph.getAdjList().get(user);
+        List<User> listFollowing = new LinkedList<>();
+        for (Edge<User> edge : edges) {
+            listFollowing.add(edge.getDestination().getValue());
+        }
+        return listFollowing;
+    }
+
+    public String mostPopularTopic() throws FileNotFoundException { // O(n^2)
+        LinkedList<String> topicList = (LinkedList<String>) getTopicList(); // O(n^2)
         TreeMultiset<String> topics = TreeMultiset.create();
-        for (String string : topicList) {
+        for (String string : topicList) { // O(n)
             topics.add(string);
         }
         Set<Entry<String>> setTopics = topics.entrySet();
@@ -61,14 +89,14 @@ public class AudieMethod {
                 if (o1.getCount() == o2.getCount()) {
                     return 0;
                 }
-                return o1.getCount() > o2.getCount()?-1:1;
+                return o1.getCount() > o2.getCount() ? -1 : 1;
             }
         });
 
         return linkedList.get(0).toString();
     }
 
-    public List<String> getTopicList() throws FileNotFoundException {
+    public List<String> getTopicList() throws FileNotFoundException { // O(n^2)
         RFile rFile = new RFile();
         rFile.createUsers();
         List<Node<User>> userList = new ArrayList<>(rFile.getDirectedGraph().getAllNodes());
@@ -82,7 +110,7 @@ public class AudieMethod {
         return topicList;
     }
 
-    public String mostPopularRepo() throws FileNotFoundException {
+    public String mostPopularRepo() throws FileNotFoundException { // O(n^2)
         LinkedList<String> repoList = (LinkedList<String>) getReposList();
         TreeMultiset<String> repos = TreeMultiset.create();
         for (String string : repoList) {
@@ -96,7 +124,7 @@ public class AudieMethod {
                 if (o1.getCount() == o2.getCount()) {
                     return 0;
                 }
-                return o1.getCount() > o2.getCount()?-1:1;
+                return o1.getCount() > o2.getCount() ? -1 : 1;
             }
         });
         return linkedList.get(0).toString();
