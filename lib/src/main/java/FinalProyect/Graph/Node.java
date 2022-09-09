@@ -88,4 +88,15 @@ public class Node<T> {
         return "[" + value + "]";
     }
 
+    @Override
+    public int hashCode() {
+        return value.hashCode();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        Node<T>node = (Node<T>) obj;
+        return value.equals(node.getValue());
+    }
+
 }
