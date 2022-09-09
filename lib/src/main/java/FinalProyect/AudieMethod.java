@@ -134,4 +134,21 @@ public class AudieMethod {
         });
         return linkedList.get(0).toString();
     }
+
+    public List<String> getReposList() throws FileNotFoundException { // O(n^2)
+
+        RFile rFile = new RFile();
+        rFile.createUsers();
+        List<Node<User>> userList = new ArrayList<>(rFile.getDirectedGraph().getAllNodes());
+        List<String> reposList = new LinkedList<>();
+        for (int i = 0; i < userList.size(); i++) {
+
+            LinkedList<String> list = userList.get(i).getValue().getRepositoriesFollowList();
+            for (String string : list) {
+                reposList.add(string);
+            }
+
+        }
+        return reposList;
+    }
 }
