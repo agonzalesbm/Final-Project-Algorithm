@@ -15,6 +15,7 @@
 102 Algorithms, 3D, Python
 103 Machine learning, python, deep learning
 2002 css, html, python
-2
+3
 100 gchq/CyberChef, gndx/javascript-challenges, Nickyie/Cybersecurity-Resources
 102 Nickyie/Cybersecurity-Resources
+1000 Nickyie/Cybersecurity-Resources, gndx/javascript-challenges
