@@ -4,6 +4,9 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.Scanner;
 
+import FinalProyect.Graph.DirectedGraph;
+import FinalProyect.Graph.Node;
+
 public class RFile {
     private DirectedGraph<User> directedGraph;
     private FileReader fileReader;

@@ -1,4 +1,4 @@
-package FinalProyect;
+package FinalProyect.Graph;
 
 
 import java.util.*;
