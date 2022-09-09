@@ -16,12 +16,13 @@ import FinalProyect.Graph.Edge;
 import FinalProyect.Graph.Node;
 
 public class AudieMethod {
-    public List<User> method1(DirectedGraph<User> directedGraph, int id, int limit) {
+    public List<User> method1(DirectedGraph<User> directedGraph, int id, int N) {
         MethodsAux1 m = new MethodsAux1();
         User user = directedGraph.getNode(new User(id)).getValue();
-        List<User> listNotFollow = m.generateListFollow(user, directedGraph, limit);
+        List<User> listNotFollow = m.generateListFollow(user, directedGraph, N);
         m.sortList(listNotFollow, user);
-        return m.selectionToLimit(listNotFollow, limit);
+        System.out.println(listNotFollow);
+        return listNotFollow;
     }
 
     public void method2(DirectedGraph<User> directedGraph, int N) throws FileNotFoundException { // O(n^2)
@@ -33,6 +34,7 @@ public class AudieMethod {
 
         for (int i = 1; i < listUsers.size(); i++) { // O(n^2)
             List<User> list = listUsers.get(i).getValue().getUsersThatUserFollow();
+            count = 0;
             for (int j = 0; j < list.size(); j++) {
                 if (audieUsersToFollow.contains(list.get(j))) {
                     count++;
@@ -47,24 +49,24 @@ public class AudieMethod {
         System.out.println(result);
     }
 
-    public List<User> method3(User user1, int limit, DirectedGraph<User> directedGraph) { // O(n log n)
+    public List<User> method3(User user1, int N, DirectedGraph<User> directedGraph) { // O(n log n)
         Node<User> user = directedGraph.getNode(user1);
         List<User> listUserFollowing = listFollowing(user, directedGraph);
         List<User> listFinal = new LinkedList<>();
-        managUserList(limit - 1, 0, user.getValue().getUserFollowList(), listFinal); // O(n log n)
+        managUserList(N - 1, 0, user.getValue().getUserFollowList(), listFinal); // O(n log n)
         listFinal.removeAll(listUserFollowing);
         listFinal.remove(user.getValue());
         System.out.println(listFinal);
         return listFinal;
     }
 
-    private void managUserList(int limit, int cont, List<User> users, List<User> listFinal) { // O(n log n)
-        if (limit == cont) {
+    private void managUserList(int N, int cont, List<User> users, List<User> listFinal) { // O(n log n)
+        if (N == cont) {
             listFinal.addAll(users);
             return;
         }
         for (User user : users) { // O(n)
-            managUserList(limit, cont + 1, user.getUserFollowList(), listFinal);
+            managUserList(N, cont + 1, user.getUserFollowList(), listFinal);
         }
     }
 
@@ -77,7 +79,7 @@ public class AudieMethod {
         return listFollowing;
     }
 
-    public String mostPopularTopic(DirectedGraph<User> directedGraph) throws FileNotFoundException { // O(n^2)
+    private String mostPopularTopic(DirectedGraph<User> directedGraph) throws FileNotFoundException { // O(n^2)
         LinkedList<String> topicList = (LinkedList<String>) getTopicList(directedGraph); // O(n^2)
         TreeMultiset<String> topics = TreeMultiset.create();
         for (String string : topicList) { // O(n)
@@ -110,7 +112,7 @@ public class AudieMethod {
         return topicList;
     }
 
-    public String mostPopularRepo(DirectedGraph<User> directedGraph) throws FileNotFoundException { // O(n^2)
+    private String mostPopularRepo(DirectedGraph<User> directedGraph) throws FileNotFoundException { // O(n^2)
         LinkedList<String> repoList = (LinkedList<String>) getReposList(directedGraph);
         TreeMultiset<String> repos = TreeMultiset.create();
         for (String string : repoList) {
@@ -140,5 +142,9 @@ public class AudieMethod {
             }
         }
         return reposList;
+    }
+
+    public void method4(DirectedGraph<User> directedGraph) throws FileNotFoundException {
+        System.out.println("Most popular topic: " + mostPopularTopic(directedGraph) + ", "  + "Most popular repositorie: " + mostPopularRepo(directedGraph));
     }
 }

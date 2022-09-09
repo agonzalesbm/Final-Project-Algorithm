@@ -29,16 +29,6 @@ public class MethodsAux1 {
         return list;
     }
 
-    public List<User> selectionToLimit(List<User> listUser, int limit) {
-        List<User> list = new LinkedList<>();
-        if (listUser.size() >= limit) {
-            for (int index = 0; index < limit; index++) {
-                list.add(listUser.get(index));
-            }
-        }
-        return list;
-    }
-
     private int findInComun(List<String> list, List<String> listComun) {
         int cont = 0;
         for (String value : list) {

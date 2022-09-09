@@ -1,0 +1,23 @@
+100
+10
+100 102
+10012 1000
+10012 100
+10011 10012
+10011 102
+10013 102
+102 103
+100 10012
+2000 200
+102 2002
+6
+10011 Java, Latex, Machine learning
+100 Latex, Deep learning, Machine learning, Python
+200 Javascript, data structures, data visualization
+102 Algorithms, 3D, Python
+103 Machine learning, python, Deep learning
+2002 css, html, python
+3
+100 gchq/CyberChef, gndx/javascript-challenges, Nickyie/Cybersecurity-Resources
+102 Nickyie/Cybersecurity-Resources
+1000 Nickyie/Cybersecurity-Resources, gndx/javascript-challenges
